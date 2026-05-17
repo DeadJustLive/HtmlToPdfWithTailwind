@@ -1,74 +1,49 @@
-# React + TypeScript + Vite
+# 📄 AgriTech: Herramienta de Conversión HTML a PDF
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Esta aplicación permite convertir documentos HTML complejos (incluyendo estilos de Tailwind CSS) en archivos PDF de alta fidelidad utilizando **Puppeteer** en el backend.
 
-Currently, two official plugins are available:
+## 🚀 Requisitos Previos
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Node.js** (Versión 18 o superior recomendada)
+- **npm** (Instalado con Node.js)
 
-## React Compiler
+## 🛠️ Instalación
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Navega a la carpeta de la herramienta:
+   ```bash
+   cd html-to-pdf-app
+   ```
+2. Instala las dependencias necesarias:
+   ```bash
+   npm install
+   ```
 
-## Expanding the ESLint configuration
+## 🏃 Cómo Iniciar la Herramienta
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+La herramienta requiere que **dos servidores** estén activos simultáneamente:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 1. Iniciar el Servidor de Generación (Backend)
+Este servidor utiliza Puppeteer para renderizar el HTML y generar el PDF.
+```bash
+node server.cjs
 ```
+*El servidor correrá en: `http://localhost:3001`*
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 2. Iniciar la Interfaz de Usuario (Frontend)
+Abre una nueva terminal y ejecuta:
+```bash
+npm run dev
 ```
-# HtmlToPdfWithTailwind
+*Vite asignará un puerto (usualmente `http://localhost:5173`). Revisa la consola para confirmar el puerto exacto.*
+
+## 📖 Uso
+
+1. Abre la URL del frontend en tu navegador.
+2. Sigue las instrucciones en pantalla para cargar o pegar el HTML que deseas convertir.
+3. El frontend enviará el contenido al backend en el puerto 3001.
+4. El backend devolverá el PDF generado listo para descargar.
+
+## ⚠️ Notas Importantes
+
+- **Tailwind CSS**: El servidor backend tiene un retraso configurado para permitir que el CDN de Tailwind procese todos los estilos antes de capturar el PDF.
+- **Puertos**: Asegúrate de que los puertos 3001 y el asignado por Vite estén libres antes de iniciar.
